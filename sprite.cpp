@@ -1,8 +1,9 @@
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 #include "sprite.h"
 
-Sprite::Sprite(SpriteSkin *skin, int z_order) :
+Sprite::Sprite(std::shared_ptr<SpriteSkin> skin, int z_order) :
 position(0, 0, 0, 0),
 velocity(0, 0),
 bounds(0, 0, 0, 0),
@@ -15,19 +16,19 @@ a_request(false),
 a_requested(false),
 a_collision_reduce(false)
 {
-	sf::Texture *texture;
+	std::shared_ptr<sf::Texture> texture;
 
 	this->skin = skin;
 	this->z_order = z_order;
 
-	this->sfml_sprite = new sf::Sprite();
+	this->sfml_sprite = std::make_unique<sf::Sprite>();
 	
 	texture = this->skin->get_current_texture();
 	this->sfml_sprite->setTexture(*texture);
 	this->a_previous_texture = texture;
 }
 
-Sprite::Sprite(SpriteSkin *skin, Rect bounds,
+Sprite::Sprite(std::shared_ptr<SpriteSkin> skin, Rect bounds,
 	       enum bounds_action bounds_action,
 	       int z_order) :
 position(0, 0, 0, 0),
@@ -42,12 +43,12 @@ a_request(false),
 a_requested(false),
 a_collision_reduce(false)
 {
-	sf::Texture *texture;
+	std::shared_ptr<sf::Texture> texture;
 
 	this->skin = skin;
 	this->z_order = z_order;
 
-	this->sfml_sprite = new sf::Sprite();
+	this->sfml_sprite = std::make_unique<sf::Sprite>();
 	
 	texture = this->skin->get_current_texture();
 	this->sfml_sprite->setTexture(*texture);
@@ -188,15 +189,25 @@ enum sprite_action Sprite::update(timestamp_t time_up)
 	if (a_dying)
 		return SA_KILL;
 
+	this->animate();
+
 	sprite_action = update_position(time_up);
 	skin->update(time_up);
 
 	return sprite_action;
 }
 
-void Sprite::draw(GameWindow *window)
+void Sprite::animate(void)
 {
-	sf::Texture *texture;
+}
+
+void Sprite::on_click(void)
+{
+}
+
+void Sprite::draw(std::shared_ptr<GameWindow> window)
+{
+	std::shared_ptr<sf::Texture> texture;
 
 	texture = skin->get_current_texture();
 	if (texture != a_previous_texture) {
@@ -204,7 +215,8 @@ void Sprite::draw(GameWindow *window)
 		a_previous_texture = texture;
 	}
 
-	window->draw(*sfml_sprite);
+	if (!this->hidden)
+		window->draw(*sfml_sprite);
 }
 
 Rect Sprite::get_position(void) const
@@ -215,6 +227,11 @@ Rect Sprite::get_position(void) const
 Vector Sprite::get_velocity(void) const
 {
 	return this->velocity;
+}
+
+const sf::Sprite &Sprite::get_sfml_sprite(void) const
+{
+	return *sfml_sprite;
 }
 
 void Sprite::set_position(Rect position)
@@ -231,12 +248,23 @@ void Sprite::set_velocity(Vector velocity)
 	this->velocity = velocity;
 }
 
-Sprite::~Sprite(void)
+void Sprite::set_hidden(bool hidden)
 {
-	delete this->sfml_sprite;
+	this->hidden = hidden;
 }
 
-bool sprites_cmp(Sprite *a, Sprite *b)
+Sprite::~Sprite(void)
 {
-	return a->z_order < b->z_order;
+}
+
+bool sprites_cmp(std::shared_ptr<Sprite> a,
+		 std::shared_ptr<Sprite> b)
+{
+	if (a->z_order < b->z_order)
+		return 1;
+
+	if (a->z_order > b->z_order)
+		return 0;
+
+	return a < b;
 }

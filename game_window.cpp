@@ -2,15 +2,22 @@
 
 #include "game_window.h"
 
-GameWindow::GameWindow()
+GameWindow::GameWindow() :
+window(std::make_unique<sf::RenderWindow>()),
+u_rect(sf::Vector2f(0, 0)),
+r_rect(sf::Vector2f(0, 0)),
+b_rect(sf::Vector2f(0, 0)),
+l_rect(sf::Vector2f(0, 0)),
+state(GW_UNINITIALIZED)
 {
-	this->window = new sf::RenderWindow();
-	this->state = GW_UNINITIALIZED;
+	u_rect.setFillColor(sf::Color(255, 255, 255));
+	r_rect.setFillColor(sf::Color(255, 255, 255));
+	b_rect.setFillColor(sf::Color(255, 255, 255));
+	l_rect.setFillColor(sf::Color(255, 255, 255));
 }
 
 GameWindow::~GameWindow(void)
 {
-	delete this->window;
 }
 
 void GameWindow::create(void)
@@ -36,6 +43,20 @@ void GameWindow::clear(void)
 
 void GameWindow::display(void)
 {
+	u_rect.setSize(sf::Vector2f(ext_size_x, ext_size_y/2));
+	u_rect.setPosition(sf::Vector2f(-ext_size_x/2 + size_x/2, -ext_size_y/2));
+	r_rect.setSize(sf::Vector2f(ext_size_x/2, ext_size_y));
+	r_rect.setPosition(sf::Vector2f(size_x, 0));
+	b_rect.setSize(sf::Vector2f(ext_size_x, ext_size_y/2));
+	b_rect.setPosition(sf::Vector2f(0, size_y));
+	l_rect.setSize(sf::Vector2f(ext_size_x/2, ext_size_y));
+	l_rect.setPosition(sf::Vector2f(-ext_size_x/2, 0));
+
+	window->draw(u_rect, sf::RenderStates::Default);
+	window->draw(r_rect, sf::RenderStates::Default);
+	window->draw(b_rect, sf::RenderStates::Default);
+	window->draw(l_rect, sf::RenderStates::Default);
+
 	window->display();
 }
 
@@ -45,7 +66,7 @@ void GameWindow::draw(const sf::Drawable &drawable,
 	window->draw(drawable, states);
 }
 
-void GameWindow::set_size(int size_x, int size_y)
+void GameWindow::set_size(double size_x, double size_y)
 {
 	this->size_x = size_x;
 	this->size_y = size_y;
@@ -54,6 +75,12 @@ void GameWindow::set_size(int size_x, int size_y)
 		window->setSize(sf::Vector2u(size_x,
 					     size_y));
 	}
+}
+
+void GameWindow::set_ext_size(double size_x, double size_y)
+{
+	this->ext_size_x = size_x;
+	this->ext_size_y = size_y;
 }
 
 void GameWindow::set_title(std::string title)
@@ -80,19 +107,18 @@ void GameWindow::set_state(
 	}
 }
 
-int GameWindow::get_size_x(void)
+void GameWindow::set_view(sf::View view)
 {
-	/* Update size. */
-	this->size_x = window->getSize().x;
+	window->setView(view);
+}
 
+double GameWindow::get_size_x(void)
+{
 	return this->size_x;
 }
 
-int GameWindow::get_size_y(void)
+double GameWindow::get_size_y(void)
 {
-	/* Update size. */
-	this->size_y = window->getSize().y;
-
 	return this->size_y;
 }
 
@@ -104,4 +130,14 @@ std::string GameWindow::get_title(void)
 enum game_window_state GameWindow::get_state(void)
 {
 	return state;
+}
+
+sf::View GameWindow::get_default_view(void)
+{
+	return window->getDefaultView();
+}
+
+const sf::RenderWindow &GameWindow::get_window(void)
+{
+	return *window;
 }

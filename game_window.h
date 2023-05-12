@@ -2,6 +2,7 @@
 #define GAME_WINDOW_H_
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include <string>
 
 #include "algebra.h"
@@ -30,10 +31,17 @@ enum game_window_state {
  */
 class GameWindow {
 private:
-	sf::RenderWindow *window;
+	std::unique_ptr<sf::RenderWindow> window;
 
-	int size_x;
-	int size_y;
+	sf::RectangleShape u_rect;
+	sf::RectangleShape r_rect;
+	sf::RectangleShape b_rect;
+	sf::RectangleShape l_rect;
+
+	double size_x;
+	double size_y;
+	double ext_size_x;
+	double ext_size_y;
 	std::string title;
 	/* TODO: Ikonka. */
 
@@ -55,14 +63,18 @@ public:
 		  		sf::RenderStates::Default);
 
 	void set_size(Vector size);
-	void set_size(int size_x, int size_y);
+	void set_size(double size_x, double size_y);
+	void set_ext_size(double size_x, double size_y);
 	void set_title(std::string title);
 	void set_state(enum game_window_state);
+	void set_view(sf::View);
 
-	int get_size_x(void);
-	int get_size_y(void);
+	double get_size_x(void);
+	double get_size_y(void);
 	std::string get_title(void);
 	enum game_window_state get_state(void);
+	sf::View get_default_view(void);
+	const sf::RenderWindow &get_window(void);
 };
 
 #endif /* GAME_WINDOW_H_ */

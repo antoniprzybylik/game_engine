@@ -1,22 +1,20 @@
 .PHONY: all clean build debug
 .SUFFIXES: .o .cpp
 
-PROJECT = test
+TARGET = libengine.a
 
 CXX = g++
-LINK = g++
-STRIP = strip
+LINK = ld
 
-CXXFLAGS = -MMD -MP -Wall -O3
-LDFLAGS = -fPIC -lsfml-graphics -lsfml-window -lsfml-system
+CXXFLAGS = -MMD -MP -std=c++20 -Wall -pedantic
 
 OBJS = \
-main.o \
 engine.o \
 sprite_skin.o \
 sprite.o \
 game_window.o \
 algebra.o \
+font_arial.o \
 
 DEPS = $(OBJS:%.o=%.d)
 
@@ -26,18 +24,21 @@ compile: $(OBJS)
 
 build: CXXFLAGS += -O3
 build: compile
-	$(LINK) $(OBJS) -o $(PROJECT) $(LDFLAGS)
-	$(STRIP) $(PROJECT)
+	ar r $(TARGET) $(OBJS)
+	ranlib $(TARGET)
 
 debug: CXXFLAGS += -DGLIBCXX_DEBUG -g
-debug: LDFLAGS += -fsanitize=undefined,address
 debug: clean | compile
-	$(LINK) $(OBJS) -o $(PROJECT) $(LDFLAGS)
+	ar r $(TARGET) $(OBJS)
+	ranlib $(TARGET)
 
 clean:
 	rm -f $(OBJS) $(DEPS)
 
-.cpp.o:
+%.o : %.cpp
 	$(CXX) $< -o $@ -c $(CXXFLAGS)
+
+%.o : %.ttf
+	$(LINK) -r -b binary $< -o $@
 
 -include $(DEPS)
