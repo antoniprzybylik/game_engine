@@ -23,16 +23,14 @@ Vector::Vector(const Vector &vector)
 
 Vector::~Vector(void)
 {
-	/* FIXME */
 }
 
 Vector& Vector::operator+=(const Vector& rhs)
 {
 	if (!rhs.is_dir()) {
-		/* FIXME:
-		 * RHS nie jest kierunkiem,
-		 * a punktem: Zabronione.
-		 */
+		throw std::invalid_argument(
+			"Vector on RHS is not a "
+			"direction but a point.");
 	}
 
 	this->x += rhs.x;
@@ -44,10 +42,9 @@ Vector& Vector::operator+=(const Vector& rhs)
 Vector& Vector::operator-=(const Vector& rhs)
 {
 	if (!rhs.is_dir()) {
-		/* FIXME:
-		 * RHS nie jest kierunkiem,
-		 * a punktem: Zabronione.
-		 */
+		throw std::invalid_argument(
+			"Vector on RHS is not a "
+			"direction but a point.");
 	}
 
 	this->x -= rhs.x;
@@ -145,7 +142,6 @@ Rect::Rect(Point pos, Vector dims)
 
 Rect::~Rect(void)
 {
-	/* FIXME */
 }
 
 void Rect::set_pos(Point pos)
