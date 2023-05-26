@@ -88,8 +88,10 @@ void TextureSkin::request_next_frame(void)
 
 void TextureSkin::request_frame(int frame)
 {
-	/* TODO: Sprawdzanie poprawności
-	 * 	 danych. */
+	if (frame >= frames_cnt) {
+		throw std::invalid_argument(
+			"Frame number too big.");
+	}
 
 	a_requested_frame = frame;
 	a_request_frame = true;
