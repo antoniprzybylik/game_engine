@@ -24,11 +24,13 @@ compile: $(OBJS)
 
 build: CXXFLAGS += -O3
 build: compile
+	rm $(TARGET)
 	ar r $(TARGET) $(OBJS)
 	ranlib $(TARGET)
 
 debug: CXXFLAGS += -DGLIBCXX_DEBUG -g
 debug: clean | compile
+	rm $(TARGET)
 	ar r $(TARGET) $(OBJS)
 	ranlib $(TARGET)
 
