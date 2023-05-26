@@ -103,7 +103,8 @@ void GameWindow::set_state(
 		this->state = state;
 		this->destroy();
 	} else {
-		/* FIXME: Zabronione. */
+		throw std::runtime_error(
+			"Unknown window state.");
 	}
 }
 
