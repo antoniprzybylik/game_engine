@@ -10,12 +10,10 @@ sprites(sprites_cmp),
 on_tick(on_tick),
 ticks_in_frame(ticks_in_frame)
 {
-	/* FIXME */
 }
 
 Engine::~Engine(void)
 {
-	/* FIXME */
 }
 
 void Engine::add_sprite(std::shared_ptr<Sprite> sprite)
