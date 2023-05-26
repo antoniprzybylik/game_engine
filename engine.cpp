@@ -67,7 +67,10 @@ void Engine::exec(void)
 	sf::Vector2i mouse_pos_raw;
 
 	if (!window) {
-		/* FIXME: Błąd. */
+		throw std::runtime_error(
+			"Can not execute "
+			"engine without bound "
+			"window.");
 	}
 
 	/* TODO: Lepsza walidacja. */
