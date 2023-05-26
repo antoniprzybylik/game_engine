@@ -138,7 +138,6 @@ std::shared_ptr<sf::Texture> TextureSkin::get_current_texture(void) const
 
 TextureSkin::~TextureSkin(void)
 {
-	/* FIXME */
 }
 
 extern char _binary_font_arial_ttf_start[];
