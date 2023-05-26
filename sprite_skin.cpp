@@ -141,8 +141,8 @@ TextureSkin::~TextureSkin(void)
 	/* FIXME */
 }
 
-extern char _binary_arial_ttf_start[];
-extern char _binary_arial_ttf_end[];
+extern char _binary_font_arial_ttf_start[];
+extern char _binary_font_arial_ttf_end[];
 
 LabelSkin::LabelSkin(std::string *text_str) :
 tex(std::make_shared<sf::Texture>()),
@@ -151,10 +151,10 @@ rect(sf::Vector2f(260.0f, 20.0f))
 {
 	rect.setFillColor(sf::Color(255, 0, 0));
 
-	font.loadFromMemory(_binary_arial_ttf_start,
+	font.loadFromMemory(_binary_font_arial_ttf_start,
 			    (size_t)
-			    ((uint64_t) _binary_arial_ttf_end -
-			     (uint64_t) _binary_arial_ttf_start));
+			    ((uint64_t) _binary_font_arial_ttf_end -
+			     (uint64_t) _binary_font_arial_ttf_start));
 
 	rtex.create(260, 20);
 
