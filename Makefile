@@ -1,4 +1,4 @@
-.PHONY: all clean build debug
+.PHONY: all clean build debug tests
 .SUFFIXES: .o .cpp
 
 TARGET = libengine.a
@@ -18,7 +18,7 @@ font_arial.o \
 
 DEPS = $(OBJS:%.o=%.d)
 
-all: build
+all: build | tests
 
 compile: $(OBJS)
 
@@ -33,6 +33,9 @@ debug: clean | compile
 	rm -f $(TARGET)
 	ar r $(TARGET) $(OBJS)
 	ranlib $(TARGET)
+
+tests:
+	make -C tests/
 
 clean:
 	rm -f $(OBJS) $(DEPS)
