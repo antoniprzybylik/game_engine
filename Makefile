@@ -1,4 +1,4 @@
-.PHONY: all clean build debug tests
+.PHONY: all clean build debug tests run-tests
 .SUFFIXES: .o .cpp
 
 TARGET = libengine.a
@@ -36,6 +36,9 @@ debug: clean | compile
 
 tests:
 	make -C tests/
+
+run-tests:
+	make run -C tests/
 
 clean:
 	rm -f $(OBJS) $(DEPS)
