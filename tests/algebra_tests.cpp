@@ -52,5 +52,15 @@ TEST_CASE("vector")
 
 		CHECK(float_cmp(v.get_x(), 4.2));
 		CHECK(float_cmp(v.get_y(), 16.11));
+
+		v -= d;
+
+		CHECK(float_cmp(v.get_x(), 3.1));
+		CHECK(float_cmp(v.get_y(), 7.81));
+
+		v *= 3;
+
+		CHECK(float_cmp(v.get_x(), 9.3));
+		CHECK(float_cmp(v.get_y(), 23.43));
 	}
 }
