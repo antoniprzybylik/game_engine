@@ -6,7 +6,8 @@ algebra-tests:
 	g++ algebra_tests.cpp -o algebra_tests -I../ -L../ -lengine
 
 engine-tests:
-	g++ engine_tests.cpp -o engine_tests -I../ -L../ -lengine
+	g++ engine_tests.cpp -o engine_tests -I../ -L../ -lengine \
+		-lsfml-graphics -lsfml-window -lsfml-system
 
 run:
 	./algebra_tests
