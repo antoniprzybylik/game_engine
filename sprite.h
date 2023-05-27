@@ -38,13 +38,12 @@ protected:
 	Rect position;
 	Vector velocity;
 
-	int z_order; // TODO
+	int z_order;
 
 	Rect bounds;
 	enum bounds_action bounds_action;
 	bool hidden;
 
-	/* Wymiana danych. */
 	Vector a_collision; // TODO
 	bool a_dying; // TODO
 	bool a_one_cycle; // TODO
