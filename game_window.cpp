@@ -138,7 +138,7 @@ sf::View GameWindow::get_default_view(void)
 	return window->getDefaultView();
 }
 
-const sf::RenderWindow &GameWindow::get_window(void)
+sf::RenderWindow &GameWindow::get_window(void)
 {
 	return *window;
 }
