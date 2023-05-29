@@ -130,6 +130,10 @@ std::string GameWindow::get_title(void)
 
 enum game_window_state GameWindow::get_state(void)
 {
+	/* Update window state. */
+	if (!window->isOpen())
+		state = GW_DESTROYED;
+
 	return state;
 }
 

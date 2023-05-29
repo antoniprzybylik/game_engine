@@ -74,7 +74,7 @@ public:
 	std::string get_title(void);
 	enum game_window_state get_state(void);
 	sf::View get_default_view(void);
-	const sf::RenderWindow &get_window(void);
+	sf::RenderWindow &get_window(void);
 };
 
 #endif /* GAME_WINDOW_H_ */
