@@ -61,7 +61,7 @@ void Engine::exec(void)
 	sf::Event event;
 	sf::View view;
 
-	std::set<std::shared_ptr<Sprite> >::const_iterator s;
+	std::set<std::shared_ptr<Sprite> >::const_reverse_iterator s;
 	static bool lock_click = false;
 	sf::Vector2f mouse_pos;
 	sf::Vector2i mouse_pos_raw;
@@ -116,10 +116,16 @@ void Engine::exec(void)
 					mouse_pos.x = mouse_pos_raw.x;
 					mouse_pos.y = mouse_pos_raw.y;
 
-					for (s = sprites.begin();
-					     s != sprites.end(); s++) {
-						if ((*s)->get_sfml_sprite().getGlobalBounds().contains(mouse_pos))
-						(*s)->on_click();
+					for (s = sprites.rbegin();
+					     s != sprites.rend(); s++) {
+						if ((*s)->get_sfml_sprite().
+							getGlobalBounds().contains(mouse_pos)) {
+							(*s)->on_click();
+
+							/* Tylko duszek w najwyższej
+							 * warstwie jest kliknięty. */
+							break;
+						}
 					}
 				}
 			}
