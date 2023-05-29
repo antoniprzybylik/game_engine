@@ -145,7 +145,7 @@ TextureSkin::~TextureSkin(void)
 extern char _binary_font_arial_ttf_start[];
 extern char _binary_font_arial_ttf_end[];
 
-LabelSkin::LabelSkin(std::string *text_str) :
+LabelSkin::LabelSkin(std::wstring *text_str) :
 tex(std::make_shared<sf::Texture>()),
 text_str(text_str),
 rect(sf::Vector2f(260.0f, 20.0f))

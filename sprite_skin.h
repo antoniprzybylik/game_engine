@@ -58,13 +58,13 @@ private:
 	sf::RenderTexture rtex;
 	std::shared_ptr<sf::Texture> tex;
 
-	std::string *text_str;
+	std::wstring *text_str;
 	sf::RectangleShape rect;
 	sf::Font font;
 	sf::Text text;
 
 public:
-	LabelSkin(std::string*);
+	LabelSkin(std::wstring*);
 	~LabelSkin(void) override;
 
 	void update(timestamp_t) override;
