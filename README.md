@@ -9,10 +9,16 @@ Prosty silnik do gier oparty na sprite'ach, napisany w C++ z wykorzystaniem bibl
 
 Uwaga: Silnik nie kompiluje się z SFML 3 ani Catch2 3. Trzeba użyć starszych wersji tych bibliotek.
 
+## Przykład wykorzystania
+
+Silnik został wykorzystany w "Studenckiej Grze RPG": https://github.com/antoniprzybylik/studencka_gra_rpg
+
 ## Licencja
 
 Licencja GPL-2.0 (zobacz plik LICENSE)
 
-## Przykład wykorzystania
+## Autor
 
-Silnik został wykorzystany w "Studenckiej Grze RPG": https://github.com/antoniprzybylik/studencka_gra_rpg
+Autor: Antoni Michał Przybylik'
+e-mail: antoni@taon.io
+e-mail: antoni.przybylik@wp.pl
