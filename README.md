@@ -11,4 +11,8 @@ Uwaga: Silnik nie kompiluje się z SFML 3 ani Catch2 3. Trzeba użyć starszych 
 
 ## Licencja
 
-Licencja GPL-2.0
+Licencja GPL-2.0 (zobacz plik LICENSE)
+
+## Przykład wykorzystania
+
+Silnik został wykorzystany w "Studenckiej Grze RPG": https://github.com/antoniprzybylik/studencka_gra_rpg
