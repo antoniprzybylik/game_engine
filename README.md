@@ -20,5 +20,7 @@ Licencja GPL-2.0 (zobacz plik LICENSE)
 ## Autor
 
 Autor: Antoni Michał Przybylik'
+
 e-mail: antoni@taon.io
+
 e-mail: antoni.przybylik@wp.pl
